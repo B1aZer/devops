@@ -1,0 +1,15 @@
+FROM golang:1.18-bullseye
+
+#RUN go install github.com/beego/bee/v2@latest
+
+ENV APP_HOME /go/src/mathapp
+RUN mkdir -p "$APP_HOME"
+WORKDIR "$APP_HOME"
+COPY app/ .
+
+#RUN go mod init mathapp
+RUN go mod tidy
+RUN go build -o mathapp
+
+EXPOSE 8010
+CMD ["./mathapp"]
